@@ -27,4 +27,5 @@ Route::middleware(['auth:sanctum', UserMiddleware::class])->group(function() {
 Route::middleware(['auth:sanctum'], AdminMiddleware::class)->group(function() {
     Route::get('admin/dashboard', [AdminController::class, 'loadDashboard'])->middleware('admin');
     Route::get('admin/room', [AdminController::class, 'loadRoom'])->middleware('admin');
+    Route::get('admin/reservation', [AdminController::class, 'loadReservation'])->middleware('admin');
 });

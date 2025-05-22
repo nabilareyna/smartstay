@@ -123,7 +123,7 @@
                         <div class="col-md-12 room-single ftco-animate mb-5 mt-4">
                             <h3 class="mb-4">Book Now!</h3>
                             <div class="block-16">
-
+                                @yield('space-work')
                             </div>
                         </div>
 

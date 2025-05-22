@@ -16,4 +16,9 @@ class AdminController extends Controller
         $logged_user = Auth::user();
         return view('admin.admin-room',compact('logged_user'));
     }
+
+    public function loadReservation(){
+        $logged_user = Auth::user();
+        return view('admin.admin-reservation',compact('logged_user'));
+    }
 }
