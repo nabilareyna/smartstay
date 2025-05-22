@@ -69,9 +69,9 @@ class AuthController extends Controller
                 $token = $user->createToken('auth_token')->plainTextToken;
 
                 if($user->role == 0){ //here role is a column I added in users table
-                    return redirect('/user/home');
+                    return redirect('/user/homepage');
                 }elseif($user->role == 1){
-                    return redirect('/admin/home');
+                    return redirect('/admin/dashboard');
                 }else{
                     return redirect('/')->with('error','Error to find your role');
                 }
@@ -94,7 +94,7 @@ class AuthController extends Controller
         $request->session()->invalidate(); // Hapus semua session
         $request->session()->regenerateToken(); // Regenerasi CSRF token
 
-        return redirect('/login/form')->with('message', 'Logout successful');
+        return redirect('/')->with('message', 'Logout successful');
     }
 
     public function load404() {

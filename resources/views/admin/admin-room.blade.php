@@ -1,4 +1,4 @@
 @extends('layouts.admin-layout')
 @section('space-work')
-    @livewire('admin.dashboard')
+    @livewire('admin.room-form')
 @endsection

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@smartstay.com',
             'password' => bcrypt('admin123'),
-            'role' => 'admin',
+            'role' => '1',
             'no_telepon' => '081234567890'
         ]);
 

@@ -40,14 +40,10 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="/user/homepage" class="nav-link">Home</a></li>
+                    <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="rooms.html" class="nav-link">Our Rooms</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
-                    @auth
-                        <li class="nav-item"><a href="/logout" class="nav-link">Log Out</a></li>
-                    @else
-                        <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
-                    @endauth
+                    <li class="nav-item"><a href="/login/form" class="nav-link">Login</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
             </div>
@@ -91,7 +87,7 @@
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
                 <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Welcome to SmartStay Hotel {{ $logged_user->name }} !</span>
+                    <span class="subheading">Welcome to SmartStay Hotel</span>
                     <h2 class="mb-4">You'll Never Want To Leave</h2>
                 </div>
             </div>
@@ -155,84 +151,6 @@
                             <h3 class="heading mb-3">Cozy Rooms</h3>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-booking ftco-section">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-lg-12">
-                    <form action="#" class="booking-form aside-stretch">
-                        <div class="row">
-                            <div class="col-md d-flex py-md-4">
-                                <div class="form-group align-self-stretch d-flex align-items-end">
-                                    <div class="wrap align-self-stretch py-3 px-4">
-                                        <label for="#">Check-in Date</label>
-                                        <input type="text" class="form-control checkin_date"
-                                            placeholder="Check-in date">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md d-flex py-md-4">
-                                <div class="form-group align-self-stretch d-flex align-items-end">
-                                    <div class="wrap align-self-stretch py-3 px-4">
-                                        <label for="#">Check-out Date</label>
-                                        <input type="text" class="form-control checkout_date"
-                                            placeholder="Check-out date">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md d-flex py-md-4">
-                                <div class="form-group align-self-stretch d-flex align-items-end">
-                                    <div class="wrap align-self-stretch py-3 px-4">
-                                        <label for="#">Room</label>
-                                        <div class="form-field">
-                                            <div class="select-wrap">
-                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">Suite</option>
-                                                    <option value="">Family Room</option>
-                                                    <option value="">Deluxe Room</option>
-                                                    <option value="">Classic Room</option>
-                                                    <option value="">Superior Room</option>
-                                                    <option value="">Luxury Room</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md d-flex py-md-4">
-                                <div class="form-group align-self-stretch d-flex align-items-end">
-                                    <div class="wrap align-self-stretch py-3 px-4">
-                                        <label for="#">Guests</label>
-                                        <div class="form-field">
-                                            <div class="select-wrap">
-                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                <select name="" id="" class="form-control">
-                                                    <option value="">1 Adult</option>
-                                                    <option value="">2 Adult</option>
-                                                    <option value="">3 Adult</option>
-                                                    <option value="">4 Adult</option>
-                                                    <option value="">5 Adult</option>
-                                                    <option value="">6 Adult</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md d-flex">
-                                <div class="form-group d-flex align-self-stretch">
-                                    <a href="#"
-                                        class="btn btn-primary py-5 py-md-3 px-4 align-self-stretch d-block"><span>Check
-                                            Availability <small>Best Price Guaranteed!</small></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function loadHomePage(){
+    public function loadDashboard(){
         $logged_user = Auth::user();
-        return view('admin.home-page',compact('logged_user'));
+        return view('admin.admin-dashboard',compact('logged_user'));
+    }
+
+    public function loadRoom(){
+        $logged_user = Auth::user();
+        return view('admin.admin-room',compact('logged_user'));
     }
 }
