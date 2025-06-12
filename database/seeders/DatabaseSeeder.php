@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@smartstay.com',
-            'password' => bcrypt('admin123'),
+            'password' => bcrypt('123456'),
             'role' => '1',
             'no_telepon' => '081234567890'
         ]);

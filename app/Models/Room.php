@@ -11,11 +11,13 @@ class Room extends Model
 
     protected $fillable = [
         'hotel_id',
+        'nomor_kamar',
         'gambar',
         'max_person',
-        'jumlah_kamar',
         'tipe',
         'harga',
+        'ukuran_kamar',
+        'fasilitas',
         'status'
     ];
 

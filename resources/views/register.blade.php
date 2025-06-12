@@ -1,173 +1,356 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - SmartStay</title>
 
-    <title>Pages / Register - NiceAdmin Bootstrap Template</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Favicons -->
-    <link href="{{ asset('img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <style>
+        :root {
+            --primary-color: #1A3636;
+            --secondary-color: #40534C;
+            --tertiary-color: #677D6A;
+            --accent-color: #D6BD98;
+        }
 
-    <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/export-excel.min.js') }}"></script>
-    <script src="{{ asset('row_merger/dist/row-merge-bundle.min.js') }}"></script>
-    <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+        body {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Circles */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(214, 189, 152, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -4s;
+        }
+
+        .circle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: -1s;
+        }
+
+        .circle:nth-child(5) {
+            width: 140px;
+            height: 140px;
+            top: 50%;
+            left: 5%;
+            animation-delay: -3s;
+        }
+
+        .circle:nth-child(6) {
+            width: 90px;
+            height: 90px;
+            top: 70%;
+            right: 25%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            33% {
+                transform: translateY(-30px) translateX(20px) rotate(120deg);
+                opacity: 1;
+            }
+
+            66% {
+                transform: translateY(20px) translateX(-20px) rotate(240deg);
+                opacity: 0.8;
+            }
+        }
+
+        .auth-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: none;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-header {
+            text-align: center;
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .auth-header h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            color: #6b7280;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .auth-body {
+            padding: 25px 30px 30px;
+        }
+
+        .form-label {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(64, 83, 76, 0.25);
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(64, 83, 76, 0.3);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-link a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-link a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .brand-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+
+        .brand-link:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                margin: 20px;
+                max-width: none;
+            }
+
+            .auth-header {
+                padding: 25px 20px 15px;
+            }
+
+            .auth-body {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Brand Link -->
+    <a href="" class="brand-link">
+        <i class="bi bi-house-heart me-2"></i>
+        SmartStay
+    </a>
 
-    <main>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card auth-card">
+                        <div class="auth-header">
+                            <h2>Daftar Akun</h2>
+                            <p>Buat akun baru untuk mulai reservasi</p>
+                        </div>
+                        <div class="auth-body">
+                            <form method="POST" action="{{ route('registerUser') }}">
+                                @csrf
 
-            <section
-                class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                            <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">SmartStay</span>
-                                </a>
-                            </div><!-- End Logo -->
-
-                            <div class="card mb-3">
-
-                                <div class="card-body">
-
-                                    <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                        <p class="text-center small">Enter your personal details to create account</p>
-                                    </div>
-                                    {{-- display flash message here --}}
-                                    @if (Session::has('success'))
-                                        <div class="alert alert-success">{{ Session::get('success') }}</div>
-                                    @endif
-                                    @if (Session::has('error'))
-                                        <div class="alert alert-danger">{{ Session::get('error') }}</div>
-                                    @endif
-                                    <form class="row g-3" action="{{ route('registerUser') }}" method="POST">
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Your Name</label>
-                                            <input type="text" name="name" class="form-control">
-                                            <span class="text-danger">
-                                                @error('name')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
+                                <!-- Nama -->
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" value="{{ old('name') }}" required
+                                        autocomplete="name" autofocus placeholder="Masukkan nama lengkap">
+                                    @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
                                         </div>
-
-                                        <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Your Email</label>
-                                            <input type="email" name="email" class="form-control">
-                                            <span class="text-danger">
-                                                @error('email')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Your Phone Number</label>
-                                            <input type="no_telepon" name="no_telepon" class="form-control">
-                                            <span class="text-danger">
-                                                @error('no_telepon')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control">
-                                            <span class="text-danger">
-                                                @error('password')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Confirm Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control">
-                                            <span class="text-danger">
-                                                @error('password_confirmation')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
-                                        </div>
-
-
-                                        <div class="col-12">
-                                            <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0">Already have an account? <a href="/login/form">Log
-                                                    in</a></p>
-                                        </div>
-                                    </form>
-
+                                    @enderror
                                 </div>
-                            </div>
 
-                            <div class="credits">
-                                <!-- All the links in the footer should remain intact. -->
-                                <!-- You can delete the links only if you purchased the pro version. -->
-                                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                            </div>
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" value="{{ old('email') }}" required
+                                        autocomplete="email" placeholder="contoh@email.com">
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
 
+                                <!-- No HP -->
+                                <div class="mb-3">
+                                    <label for="no_telepon" class="form-label">No. Handphone</label>
+                                    <input type="tel" class="form-control @error('no_telepon') is-invalid @enderror"
+                                        id="phone" name="no_telepon" value="{{ old('no_telepon') }}" required
+                                        placeholder="08xxxxxxxxxx">
+                                    @error('no_telepon')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" required autocomplete="new-password"
+                                        placeholder="Minimal 8 karakter">
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="mb-4">
+                                    <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" required autocomplete="new-password"
+                                        placeholder="Ulangi password">
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary-custom">
+                                    <i class="bi bi-person-plus me-2"></i>
+                                    Daftar Sekarang
+                                </button>
+                            </form>
+
+                            <!-- Login Link -->
+                            <div class="auth-link">
+                                <p class="mb-0">Sudah punya akun? <a href="/login/form">Masuk di sini</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </section>
-
+            </div>
         </div>
-    </main><!-- End #main -->
+    </div>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

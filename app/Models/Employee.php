@@ -13,8 +13,8 @@ class Employee extends Model
         'hotel_id',
         'nama',
         'jabatan',
-        'email',
-        'no_hp'
+        'departemen',
+        'status',
     ];
 
     public function hotel()

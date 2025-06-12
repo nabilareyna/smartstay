@@ -1,154 +1,351 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <title>SmartStay</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStay - Hotel Reservation System</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/open-iconic-bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/animate.css') }}">
+    <style>
+        :root {
+            --primary-color: #1A3636;
+            --secondary-color: #40534C;
+            --tertiary-color: #677D6A;
+            --accent-color: #D6BD98;
+            --accent-light: #E8D7BC;
+            --dark-color: #0F2020;
+            --light-color: #F5F1E8;
+            --text-dark: #1A3636;
+            --text-light: #F5F1E8;
+            --text-muted: #8A9A8D;
+        }
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/magnific-popup.css') }}">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-dark);
+        }
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/aos.css') }}">
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/ionicons.min.css') }}">
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/bootstrap-datepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/jquery.timepicker.css') }}">
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 54, 54, 0.5);
+            z-index: 1;
+        }
 
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--light-color);
+        }
 
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/icomoon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/user-layout/css/style.css') }}">
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+            border: none;
+            border-radius: 8px;
+            padding: 14px 35px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            color: var(--light-color);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(26, 54, 54, 0.3);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-color);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--light-color);
+            color: var(--light-color);
+            border-radius: 8px;
+            padding: 12px 33px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            background: transparent;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--light-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .room-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(15, 32, 32, 0.1);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(15, 32, 32, 0.15);
+        }
+
+        .room-image {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .amenity-badge {
+            background: var(--light-color);
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-color);
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-elements::before,
+        .floating-elements::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(214, 189, 152, 0.1);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-elements::before {
+            width: 250px;
+            height: 250px;
+            top: 15%;
+            right: 8%;
+            animation-delay: -3s;
+        }
+
+        .floating-elements::after {
+            width: 180px;
+            height: 180px;
+            bottom: 15%;
+            left: 8%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+        }
+
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 25px rgba(15, 32, 32, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .bg-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .btn-outline-primary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--light-color);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--secondary-color) !important;
+        }
+
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+
+        .badge.bg-warning {
+            background-color: var(--accent-color) !important;
+            color: var(--primary-color);
+        }
+
+        .badge.bg-danger {
+            background-color: #8B5A2B !important;
+            color: var(--light-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: auto;
+                padding: 80px 0 60px;
+            }
+
+            .card-welcome {
+                margin: 30px 0;
+            }
+
+            .btn-primary-custom,
+            .btn-outline-custom {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .room-image {
+                height: 200px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Smart<span>Stay</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-color);">
+                <i class="bi bi-house-heart me-2"></i>
+                SmartStay
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="rooms.html" class="nav-link">Our Rooms</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
-                    <li class="nav-item"><a href="/login/form" class="nav-link">Login</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kamar">Kamar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#fasilitas">Fasilitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tentang">Tentang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kontak">Kontak</a>
+                    </li>
                 </ul>
+                <div class="d-flex gap-2">
+                    <a href="/login/form" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>
+                        Masuk
+                    </a>
+                    <a href="/registration/form" class="btn btn-primary btn-sm">
+                        <i class="bi bi-person-plus me-1"></i>
+                        Daftar
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
-    <!-- END nav -->
-    <div class="hero">
-        <section class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image:url({{ asset('assets/user-layout/images/bg_1.jpg') }});">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text align-items-center justify-content-end">
-                        <div class="col-md-6 ftco-animate">
-                            <div class="text">
-                                <h2>More than a hotel... an experience</h2>
-                                <h1 class="mb-3">Hotel for the whole family, all year round.</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="slider-item" style="background-image:url({{ asset('assets/user-layout/images/bg_2.jpg') }});">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text align-items-center justify-content-end">
-                        <div class="col-md-6 ftco-animate">
-                            <div class="text">
-                                <h2>SmartStay Hotel &amp; Resort</h2>
-                                <h1 class="mb-3">It feels like staying in your own home.</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-
-    <section class="ftco-section">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="floating-elements"></div>
         <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Welcome to SmartStay Hotel</span>
-                    <h2 class="mb-4">You'll Never Want To Leave</h2>
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-md pr-md-1 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services py-4 d-block text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="flaticon-reception-bell"></span>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading mb-3">Friendly Service</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md px-md-1 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services active py-4 d-block text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="flaticon-serving-dish"></span>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading mb-3">Get Breakfast</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md px-md-1 d-flex align-sel Searchf-stretch ftco-animate">
-                    <div class="media block-6 services py-4 d-block text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="flaticon-car"></span>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading mb-3">Transfer Services</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md px-md-1 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services py-4 d-block text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="flaticon-spa"></span>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading mb-3">Suits &amp; SPA</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md pl-md-1 d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services py-4 d-block text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
-                                <span class="ion-ios-bed"></span>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading mb-3">Cozy Rooms</h3>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-3 fw-bold mb-4">
+                            Selamat Datang di<br>
+                            <span style="color: var(--accent-color);">SmartStay</span>
+                        </h1>
+                        <p class="lead mb-5">
+                            Nikmati pengalaman menginap yang tak terlupakan dengan fasilitas modern
+                            dan pelayanan terbaik. Reservasi kamar impian Anda sekarang juga!
+                        </p>
+                        <div class="d-flex flex-column flex-md-row gap-3">
+                            <a href="#kamar" class="btn btn-primary-custom">
+                                <i class="bi bi-calendar-check me-2"></i>
+                                Pesan Kamar Sekarang
+                            </a>
+                            <a href="#fasilitas" class="btn btn-outline-custom">
+                                <i class="bi bi-eye me-2"></i>
+                                Lihat Fasilitas
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -156,351 +353,337 @@
         </div>
     </section>
 
-    <section class="ftco-section ftco-wrap-about ftco-no-pt ftco-no-pb">
+    <!-- Room Section -->
+    <section id="kamar" class="py-5 bg-light-custom">
         <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-7 order-md-last d-flex">
-                    <div class="img img-1 mr-md-2 ftco-animate"
-                        style="background-image: url({{ asset('assets/user-layout/images/about-1.jpg') }});"></div>
-                    <div class="img img-2 ml-md-2 ftco-animate"
-                        style="background-image: url({{ asset('assets/user-layout/images/about-2.jpg') }});"></div>
-                </div>
-                <div class="col-md-5 wrap-about pb-md-3 ftco-animate pr-md-5 pb-md-5 pt-md-4">
-                    <div class="heading-section mb-4 my-5 my-md-0">
-                        <span class="subheading">About Harbor Lights Hotel</span>
-                        <h2 class="mb-4">Harbor Lights Hotel the Most Recommended Hotel All Over the World</h2>
-                    </div>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                        a large language ocean.</p>
-                    <p><a href="#" class="btn btn-secondary rounded">Reserve Your Room Now</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimony-section">
-        <div class="container">
-            <div class="row no-gutters ftco-animate justify-content-center">
-                <div class="col-md-5 d-flex">
-                    <div class="testimony-img aside-stretch-2"
-                        style="background-image: url({{ asset('assets/user-layout/images/testimony-img.jpg') }});">
-                    </div>
-                </div>
-                <div class="col-md-7 py-5 pl-md-5">
-                    <div class="py-md-5">
-                        <div class="heading-section ftco-animate mb-4">
-                            <span class="subheading">Testimony</span>
-                            <h2 class="mb-0">Happy Customer</h2>
-                        </div>
-                        <div class="carousel-testimony owl-carousel ftco-animate">
-                            <div class="item">
-                                <div class="testimony-wrap pb-4">
-                                    <div class="text">
-                                        <p class="mb-4">A small river named Duden flows by their place and supplies
-                                            it with the necessary regelialia. It is a paradisematic country, in which
-                                            roasted parts of sentences fly into your mouth.</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="user-img"
-                                            style="background-image: url({{ asset('assets/user-layout/images/person_1.jpg') }})">
-                                        </div>
-                                        <div class="pos ml-3">
-                                            <p class="name">Gerald Hodson</p>
-                                            <span class="position">Businessman</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap pb-4">
-                                    <div class="text">
-                                        <p class="mb-4">A small river named Duden flows by their place and supplies
-                                            it with the necessary regelialia. It is a paradisematic country, in which
-                                            roasted parts of sentences fly into your mouth.</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="user-img"
-                                            style="background-image: url({{ asset('assets/user-layout/images/person_2.jpg') }})">
-                                        </div>
-                                        <div class="pos ml-3">
-                                            <p class="name">Gerald Hodson</p>
-                                            <span class="position">Businessman</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap pb-4">
-                                    <div class="text">
-                                        <p class="mb-4">A small river named Duden flows by their place and supplies
-                                            it with the necessary regelialia. It is a paradisematic country, in which
-                                            roasted parts of sentences fly into your mouth.</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="user-img"
-                                            style="background-image: url({{ asset('assets/user-layout/images/person_3.jpg') }})">
-                                        </div>
-                                        <div class="pos ml-3">
-                                            <p class="name">Gerald Hodson</p>
-                                            <span class="position">Businessman</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap pb-4">
-                                    <div class="text">
-                                        <p class="mb-4">A small river named Duden flows by their place and supplies
-                                            it with the necessary regelialia. It is a paradisematic country, in which
-                                            roasted parts of sentences fly into your mouth.</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="user-img"
-                                            style="background-image: url({{ asset('assets/user-layout/images/person_4.jpg') }})">
-                                        </div>
-                                        <div class="pos ml-3">
-                                            <p class="name">Gerald Hodson</p>
-                                            <span class="position">Businessman</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section ftco-no-pb ftco-room">
-        <div class="container-fluid px-0">
-            <div class="row no-gutters justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Harbor Lights Rooms</span>
-                    <h2 class="mb-4">Hotel Master's Rooms</h2>
-                </div>
-            </div>
-            <div class="row no-gutters">
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-6.jpg') }});"></a>
-                        <div class="half left-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">King Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-1.jpg') }});"></a>
-                        <div class="half left-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">Suite Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img order-md-last"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-2.jpg') }});"></a>
-                        <div class="half right-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">Family Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img order-md-last"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-3.jpg') }});"></a>
-                        <div class="half right-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">Deluxe Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-4.jpg') }});"></a>
-                        <div class="half left-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">Luxury Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex ftco-animate">
-                        <a href="#" class="img"
-                            style="background-image: url({{ asset('assets/user-layout/images/room-5.jpg') }});"></a>
-                        <div class="half left-arrow d-flex align-items-center">
-                            <div class="text p-4 text-center">
-                                <p class="star mb-0"><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span><span
-                                        class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
-                                <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per
-                                        night</span></p>
-                                <h3 class="mb-3"><a href="rooms.html">Superior Room</a></h3>
-                                <p class="pt-1"><a href="room-single.html"
-                                        class="btn-custom px-3 py-2 rounded">View Details <span
-                                            class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="ftco-footer ftco-section img" style="background-image: url(images/bg_4.jpg);">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Harbor Lights</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there live the blind texts.</p>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">Useful Links</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">Blog</a></li>
-                            <li><a href="#" class="py-2 d-block">Rooms</a></li>
-                            <li><a href="#" class="py-2 d-block">Amenities</a></li>
-                            <li><a href="#" class="py-2 d-block">Gift Card</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Privacy</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">Career</a></li>
-                            <li><a href="#" class="py-2 d-block">About Us</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                            <li><a href="#" class="py-2 d-block">Services</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St.
-                                        Mountain View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2
-                                            392 3929 210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">info@yourdomain.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="section-title">Pilihan Kamar Terbaik</h2>
+                    <p class="section-subtitle">Temukan kamar yang sesuai dengan kebutuhan dan budget Anda</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Standard Room -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card room-card h-100">
+                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                             class="room-image" alt="Standard Room">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title fw-bold mb-0">Standard Room</h5>
+                                <span class="price-badge">Rp 450K</span>
+                            </div>
+                            <p class="text-muted mb-3">Kamar nyaman dengan fasilitas lengkap untuk istirahat yang sempurna</p>
 
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i
-                            class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                            target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <div class="mb-3">
+                                <span class="amenity-badge">AC</span>
+                                <span class="amenity-badge">WiFi Gratis</span>
+                                <span class="amenity-badge">TV LED</span>
+                                <span class="amenity-badge">Kamar Mandi</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-muted small">
+                                    <i class="bi bi-people me-1"></i> 2 Tamu
+                                    <i class="bi bi-rulers ms-3 me-1"></i> 25m²
+                                </div>
+                                <a href="/registration/form" class="btn btn-primary btn-sm">
+                                    Pesan Sekarang
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deluxe Room -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card room-card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                                 class="room-image" alt="Deluxe Room">
+                            <span class="badge bg-warning position-absolute top-0 end-0 m-3">Populer</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title fw-bold mb-0">Deluxe Room</h5>
+                                <span class="price-badge">Rp 650K</span>
+                            </div>
+                            <p class="text-muted mb-3">Kamar mewah dengan pemandangan kota dan fasilitas premium</p>
+
+                            <div class="mb-3">
+                                <span class="amenity-badge">AC</span>
+                                <span class="amenity-badge">WiFi Gratis</span>
+                                <span class="amenity-badge">Smart TV</span>
+                                <span class="amenity-badge">Mini Bar</span>
+                                <span class="amenity-badge">Balkon</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-muted small">
+                                    <i class="bi bi-people me-1"></i> 2-3 Tamu
+                                    <i class="bi bi-rulers ms-3 me-1"></i> 35m²
+                                </div>
+                                <a href="/registration/form" class="btn btn-primary btn-sm">
+                                    Pesan Sekarang
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suite Room -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card room-card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                                 class="room-image" alt="Suite Room">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">Premium</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title fw-bold mb-0">Suite Room</h5>
+                                <span class="price-badge">Rp 950K</span>
+                            </div>
+                            <p class="text-muted mb-3">Suite mewah dengan ruang tamu terpisah dan fasilitas eksklusif</p>
+
+                            <div class="mb-3">
+                                <span class="amenity-badge">AC</span>
+                                <span class="amenity-badge">WiFi Gratis</span>
+                                <span class="amenity-badge">Smart TV</span>
+                                <span class="amenity-badge">Mini Bar</span>
+                                <span class="amenity-badge">Jacuzzi</span>
+                                <span class="amenity-badge">Living Room</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-muted small">
+                                    <i class="bi bi-people me-1"></i> 4 Tamu
+                                    <i class="bi bi-rulers ms-3 me-1"></i> 55m²
+                                </div>
+                                <a href="/registration/form" class="btn btn-primary btn-sm">
+                                    Pesan Sekarang
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="fasilitas" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="section-title text-white">Fasilitas Hotel</h2>
+                    <p class="section-subtitle text-white">Nikmati berbagai fasilitas premium untuk kenyamanan Anda</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-wifi"></i>
+                        </div>
+                        <h6 class="fw-bold text-white">WiFi Gratis</h6>
+                        <p class="small text-white">Internet cepat di seluruh area hotel</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-car-front"></i>
+                        </div>
+                        <h6 class="fw-bold text-white">Parkir Gratis</h6>
+                        <p class="small text-white">Area parkir luas dan aman 24 jam</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-cup-hot"></i>
+                        </div>
+                        <h6 class="fw-bold text-white">Restaurant</h6>
+                        <p class="small text-white">Hidangan lezat dengan menu internasional</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h6 class="fw-bold text-white">Keamanan 24/7</h6>
+                        <p class="small text-white">Sistem keamanan terdepan dengan panic button</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="tentang" class="py-5 bg-light-custom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Mengapa Memilih SmartStay?</h2>
+                    <p class="text-muted mb-4">
+                        SmartStay menghadirkan pengalaman menginap yang tak terlupakan dengan
+                        kombinasi sempurna antara kenyamanan modern dan pelayanan personal yang hangat.
                     </p>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2" style="color: var(--tertiary-color);"></i>
+                                <span>Lokasi Strategis</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2" style="color: var(--tertiary-color);"></i>
+                                <span>Harga Terjangkau</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2" style="color: var(--tertiary-color);"></i>
+                                <span>Pelayanan 24 Jam</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill me-2" style="color: var(--tertiary-color);"></i>
+                                <span>Fasilitas Lengkap</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/registration/form" class="btn btn-primary-custom">
+                            <i class="bi bi-calendar-check me-2"></i>
+                            Mulai Reservasi
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                             alt="Hotel Lobby" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-5 bg-primary-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center text-white">
+                    <h2 class="fw-bold mb-4">Hubungi Kami</h2>
+                    <p class="mb-5">Tim customer service kami siap membantu Anda 24/7 untuk reservasi dan informasi</p>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="bi bi-telephone-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <h6>Telepon</h6>
+                                <p class="mb-0">+62 21 5555 0123</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="bi bi-envelope-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <h6>Email</h6>
+                                <p class="mb-0">info@smartstay.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="bi bi-geo-alt-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <h6>Alamat</h6>
+                                <p class="mb-0">Jl. Thamrin No. 88, Jakarta Pusat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-house-heart me-2" style="color: var(--accent-color);"></i>
+                        <span class="fw-bold">SmartStay</span>
+                    </div>
+                    <p class="mb-0 mt-2 small text-muted">&copy; {{ date('Y') }} SmartStay Hotel. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end gap-3">
+                        <a href="#" class="text-white-50"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white-50"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white-50"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white-50"><i class="bi bi-whatsapp"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4"
-                stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4"
-                stroke-miterlimit="10" stroke="#F96D00" />
-        </svg></div>
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 25px rgba(26, 54, 54, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 25px rgba(26, 54, 54, 0.1)';
+            }
+        });
 
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-    <script src="{{ asset('assets/user-layout/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery-migrate-3.0.1.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery.easing.1.3.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery.stellar.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/aos.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/jquery.animateNumber.min.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/scrollax.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="{{ asset('assets/user-layout/js/google-map.js') }}"></script>
-    <script src="{{ asset('assets/user-layout/js/main.js') }}"></script>
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
+        // Observe room cards
+        document.querySelectorAll('.room-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
-
 </html>

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
             $table->string('nama');
             $table->string('jabatan');
-            $table->string('email');
-            $table->string('no_hp');
+            $table->string('departemen');
+            $table->string('status')->default('aktif');
             $table->timestamps();
         });
     }
