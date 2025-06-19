@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,9 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -32,7 +35,12 @@
             color: var(--text-dark);
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Playfair Display', serif;
         }
 
@@ -185,8 +193,17 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
-            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 1;
+            }
         }
 
         .navbar-custom {
@@ -282,6 +299,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
@@ -363,110 +381,52 @@
                 </div>
             </div>
             <div class="row g-4">
-                <!-- Standard Room -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card room-card h-100">
-                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                             class="room-image" alt="Standard Room">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title fw-bold mb-0">Standard Room</h5>
-                                <span class="price-badge">Rp 450K</span>
+                @foreach ($rooms as $room)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card room-card h-100">
+                            <div class="position-relative">
+                                <img src="{{ asset('storage/image/' . $room->gambar) }}" class="room-image"
+                                    alt="Suite Room">
+                                @if (str_contains(strtolower($room->tipe), 'suite'))
+                                    <span class="badge bg-danger position-absolute top-0 end-0 m-3">Premium</span>
+                                @elseif(str_contains(strtolower($room->tipe), 'deluxe'))
+                                    <span class="badge bg-warning position-absolute top-0 end-0 m-3">Populer</span>
+                                @endif
                             </div>
-                            <p class="text-muted mb-3">Kamar nyaman dengan fasilitas lengkap untuk istirahat yang sempurna</p>
-
-                            <div class="mb-3">
-                                <span class="amenity-badge">AC</span>
-                                <span class="amenity-badge">WiFi Gratis</span>
-                                <span class="amenity-badge">TV LED</span>
-                                <span class="amenity-badge">Kamar Mandi</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="text-muted small">
-                                    <i class="bi bi-people me-1"></i> 2 Tamu
-                                    <i class="bi bi-rulers ms-3 me-1"></i> 25m²
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title fw-bold mb-0">{{ ucwords($room->tipe) }} Room</h5>
+                                    <span class="price-badge">Rp {{ number_format($room->harga, 0, ',', '.') }}</span>
                                 </div>
-                                <a href="/registration/form" class="btn btn-primary btn-sm">
-                                    Pesan Sekarang
-                                </a>
+                                @if (str_contains(strtolower($room->tipe), 'suite'))
+                                    <p class="text-muted mb-3">Kamar nyaman dengan fasilitas lengkap untuk istirahat
+                                        yang
+                                        sempurna</p>
+                                @elseif (str_contains(strtolower($room->tipe), 'deluxe'))
+                                    <p class="text-muted mb-3">Kamar mewah dengan pemandangan kota dan fasilitas
+                                        premium</p>
+                                @else
+                                    <p class="text-muted mb-3">Suite mewah dengan ruang tamu terpisah fasilitas
+                                        eksklusif</p>
+                                @endif
+                                <div class="mb-3">
+                                    @foreach (json_decode($room->fasilitas) as $item)
+                                        <span class="amenity-badge">{{ $item }}</span>
+                                    @endforeach
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="text-muted small">
+                                        <i class="bi bi-people me-1"></i> {{ $room->max_person }} Tamu
+                                        <i class="bi bi-rulers ms-3 me-1"></i> {{ $room->ukuran_kamar }}m²
+                                    </div>
+                                    <a href="/registration/form" class="btn btn-primary btn-sm">
+                                        Pesan Sekarang
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Deluxe Room -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card room-card h-100">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                                 class="room-image" alt="Deluxe Room">
-                            <span class="badge bg-warning position-absolute top-0 end-0 m-3">Populer</span>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title fw-bold mb-0">Deluxe Room</h5>
-                                <span class="price-badge">Rp 650K</span>
-                            </div>
-                            <p class="text-muted mb-3">Kamar mewah dengan pemandangan kota dan fasilitas premium</p>
-
-                            <div class="mb-3">
-                                <span class="amenity-badge">AC</span>
-                                <span class="amenity-badge">WiFi Gratis</span>
-                                <span class="amenity-badge">Smart TV</span>
-                                <span class="amenity-badge">Mini Bar</span>
-                                <span class="amenity-badge">Balkon</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="text-muted small">
-                                    <i class="bi bi-people me-1"></i> 2-3 Tamu
-                                    <i class="bi bi-rulers ms-3 me-1"></i> 35m²
-                                </div>
-                                <a href="/registration/form" class="btn btn-primary btn-sm">
-                                    Pesan Sekarang
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Suite Room -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card room-card h-100">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                                 class="room-image" alt="Suite Room">
-                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">Premium</span>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title fw-bold mb-0">Suite Room</h5>
-                                <span class="price-badge">Rp 950K</span>
-                            </div>
-                            <p class="text-muted mb-3">Suite mewah dengan ruang tamu terpisah dan fasilitas eksklusif</p>
-
-                            <div class="mb-3">
-                                <span class="amenity-badge">AC</span>
-                                <span class="amenity-badge">WiFi Gratis</span>
-                                <span class="amenity-badge">Smart TV</span>
-                                <span class="amenity-badge">Mini Bar</span>
-                                <span class="amenity-badge">Jacuzzi</span>
-                                <span class="amenity-badge">Living Room</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="text-muted small">
-                                    <i class="bi bi-people me-1"></i> 4 Tamu
-                                    <i class="bi bi-rulers ms-3 me-1"></i> 55m²
-                                </div>
-                                <a href="/registration/form" class="btn btn-primary btn-sm">
-                                    Pesan Sekarang
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -567,7 +527,7 @@
                 <div class="col-lg-6">
                     <div class="text-center">
                         <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                             alt="Hotel Lobby" class="img-fluid rounded-4 shadow-lg">
+                            alt="Hotel Lobby" class="img-fluid rounded-4 shadow-lg">
                     </div>
                 </div>
             </div>
@@ -580,25 +540,29 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center text-white">
                     <h2 class="fw-bold mb-4">Hubungi Kami</h2>
-                    <p class="mb-5">Tim customer service kami siap membantu Anda 24/7 untuk reservasi dan informasi</p>
+                    <p class="mb-5">Tim customer service kami siap membantu Anda 24/7 untuk reservasi dan informasi
+                    </p>
                     <div class="row g-4">
                         <div class="col-md-4">
                             <div class="text-center">
-                                <i class="bi bi-telephone-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <i class="bi bi-telephone-fill mb-3"
+                                    style="font-size: 2.5rem; color: var(--accent-color);"></i>
                                 <h6>Telepon</h6>
                                 <p class="mb-0">+62 21 5555 0123</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="text-center">
-                                <i class="bi bi-envelope-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <i class="bi bi-envelope-fill mb-3"
+                                    style="font-size: 2.5rem; color: var(--accent-color);"></i>
                                 <h6>Email</h6>
                                 <p class="mb-0">info@smartstay.com</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="text-center">
-                                <i class="bi bi-geo-alt-fill mb-3" style="font-size: 2.5rem; color: var(--accent-color);"></i>
+                                <i class="bi bi-geo-alt-fill mb-3"
+                                    style="font-size: 2.5rem; color: var(--accent-color);"></i>
                                 <h6>Alamat</h6>
                                 <p class="mb-0">Jl. Thamrin No. 88, Jakarta Pusat</p>
                             </div>
@@ -618,7 +582,8 @@
                         <i class="bi bi-house-heart me-2" style="color: var(--accent-color);"></i>
                         <span class="fw-bold">SmartStay</span>
                     </div>
-                    <p class="mb-0 mt-2 small text-muted">&copy; {{ date('Y') }} SmartStay Hotel. All rights reserved.</p>
+                    <p class="mb-0 mt-2 small text-muted">&copy; {{ date('Y') }} SmartStay Hotel. All rights
+                        reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="d-flex justify-content-md-end gap-3">
@@ -638,7 +603,7 @@
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -686,4 +651,5 @@
         });
     </script>
 </body>
+
 </html>

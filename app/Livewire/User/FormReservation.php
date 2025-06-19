@@ -35,15 +35,8 @@ class FormReservation extends Component
 
         $room = Room::find($this->room_id);
 
-
-        // Cek ketersediaan kamar
-        if ($room->jumlah_kamar < 1) {
-            session()->flash('error', 'Kamar tidak tersedia.');
-            return;
-        }
-
         // Buat reservasi
-        Reservation::create([
+        $reservation = Reservation::create([
             'user_id' => Auth::id(),
             'room_id' => $room->id,
             'checkin' => $this->checkin,
@@ -51,17 +44,21 @@ class FormReservation extends Component
             'status' => 'pending', // akan diupdate setelah pembayaran
         ]);
 
-        // Kurangi jumlah kamar
-        $room->decrement('jumlah_kamar');
+        $room->update([
+            'status' => 'unavailable'
+        ]);
+
+        $bookingCode = 'RSV' . str_pad($reservation->id, 3, '0', STR_PAD_LEFT);
 
         session()->flash('success', 'Reservasi berhasil dibuat!');
+        session()->flash('booking_code', $bookingCode);
         $this->reset();
     }
 
     public function render()
     {
-        return view('livewire.user.form-reservation', [
-            'rooms' => Room::where('jumlah_kamar', '>', 0)->get()
+        return view('livewire.user.form-reservation', data: [
+            'rooms' => Room::all(),
         ]);
     }
 }

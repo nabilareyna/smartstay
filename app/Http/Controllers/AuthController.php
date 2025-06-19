@@ -69,7 +69,7 @@ class AuthController extends Controller
                 $token = $user->createToken('auth_token')->plainTextToken;
 
                 if($user->role == 0){ //here role is a column I added in users table
-                    return redirect('/user/homepage');
+                    return redirect('/user/dashboard');
                 }elseif($user->role == 1){
                     return redirect('/admin/dashboard');
                 }else{

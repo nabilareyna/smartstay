@@ -21,4 +21,19 @@ class AdminController extends Controller
         $logged_user = Auth::user();
         return view('admin.admin-reservation',compact('logged_user'));
     }
+
+    public function loadPayment(){
+        $logged_user = Auth::user();
+        return view('admin.admin-payment',compact('logged_user'));
+    }
+
+    public function loadEmployee(){
+        $logged_user = Auth::user();
+        return view('admin.admin-employee',compact('logged_user'));
+    }
+
+    public function loadPanic(){
+        $logged_user = Auth::user();
+        return view('admin.admin-panic-button',compact('logged_user'));
+    }
 }

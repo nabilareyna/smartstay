@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Room;
+use App\Models\Payment;
 
 class Reservation extends Model
 {
@@ -16,6 +19,11 @@ class Reservation extends Model
         'checkin',
         'checkout',
         'status'
+    ];
+
+    protected $casts = [
+        'checkin' => 'datetime',
+        'checkout' => 'datetime',
     ];
 
     public function user()

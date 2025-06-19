@@ -13,16 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@smartstay.com',
-            'password' => bcrypt('123456'),
-            'role' => '1',
-            'no_telepon' => '081234567890'
-        ]);
-
             $this->call([
             HotelSeeder::class,
             RoomSeeder::class,

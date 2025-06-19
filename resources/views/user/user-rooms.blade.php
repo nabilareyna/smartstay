@@ -1,4 +1,4 @@
 @extends('layouts.user-layout')
 @section('space-work')
-    @livewire('user.form-reservation')
+    @livewire('user.rooms')
 @endsection
