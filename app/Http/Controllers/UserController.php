@@ -42,6 +42,11 @@ class UserController extends Controller
         return view('user.reservation-page',compact('logged_user'));
     }
 
+    public function loadPaymentForm(){
+        $logged_user = Auth::user();
+        return view('user.user-form-payment',compact('logged_user'));
+    }
+
     public function loadDetailReservation(){
         $logged_user = Auth::user();
         return view('user.user-detail-reservation',compact('logged_user'));

@@ -53,12 +53,14 @@ class FormReservation extends Component
         session()->flash('success', 'Reservasi berhasil dibuat!');
         session()->flash('booking_code', $bookingCode);
         $this->reset();
+
+        return redirect()->to('/user/payment/' . $reservation->id);
     }
 
     public function render()
     {
         return view('livewire.user.form-reservation', data: [
-            'rooms' => Room::all(),
+            'rooms' => Room::where('status', 'available')->get(),
         ]);
     }
 }

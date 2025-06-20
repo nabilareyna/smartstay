@@ -27,6 +27,7 @@ Route::middleware(['auth:sanctum', UserMiddleware::class])->group(function() {
     Route::get('/user/help', [UserController::class, 'LoadHelp']);
     Route::get('/user/reservation/form', [UserController::class, 'loadReservationForm']);
     Route::get('/user/reservation/detail', [UserController::class, 'loadDetailReservation']);
+    Route::get('/user/payment/{reservation_id}', [UserController::class, 'loadPaymentForm']);
 });
 
 Route::middleware(['auth:sanctum'], AdminMiddleware::class)->group(function() {

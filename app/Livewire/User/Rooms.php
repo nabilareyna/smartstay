@@ -10,7 +10,7 @@ class Rooms extends Component
     public function render()
     {
         return view('livewire.user.rooms', data: [
-            'rooms' => Room::all(),
+            'rooms' => Room::where('status', 'available')->get(),
         ]);
     }
 }

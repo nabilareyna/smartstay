@@ -82,7 +82,7 @@ class RoomForm extends Component
             'harga' => $this->harga,
             'ukuran_kamar' => $this->ukuran_kamar,
             'fasilitas' => json_encode($this->fasilitas),
-            'status' => 'Available',
+            'status' => 'available',
         ]);
 
         session()->flash('success', 'Room berhasil ditambahkan!');
